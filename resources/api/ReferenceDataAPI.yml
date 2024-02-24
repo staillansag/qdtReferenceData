@@ -1,0 +1,591 @@
+openapi: 3.0.0
+info:
+  title: Reference Data API
+  version: "1.0"
+  description: API for listing and retrieving various reference data
+
+paths:
+  /countries:
+    get:
+      summary: List all countries, returning country names according to the Accept-Language header
+      operationId: listCountries
+      tags:
+        - Countries
+      responses:
+        '200':
+          description: A list of countries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  countries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /countries/{code}:
+    get:
+      summary: Get details of a specific country, returning country name according to the Accept-Language header
+      operationId: getCountry
+      tags:
+        - Countries
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+          description: ISO country code
+      responses:
+        '200':
+          description: Details of a specific country
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Country'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contact-roles:
+    get:
+      summary: List all contact roles
+      operationId: listContactRoles
+      tags:
+        - ContactRole
+      responses:
+        '200':
+          description: A list of contact roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactRole'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /contact-roles/{code}:
+    get:
+      summary: Get details of a specific contact role
+      operationId: getContactRole
+      tags:
+        - ContactRole
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+          description: The role code of the contact role to retrieve
+      responses:
+        '200':
+          description: Details of a specific contact role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRole'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /salutations:
+    get:
+      summary: List all salutations
+      operationId: listSalutations
+      tags:
+        - Salutation
+      responses:
+        '200':
+          description: A list of salutations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Salutation'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /salutations/{code}:
+    get:
+      summary: Get details of a specific salutation
+      operationId: getSalutation
+      tags:
+        - Salutation
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+            maxLength: 10
+          description: The salutation code to retrieve
+      responses:
+        '200':
+          description: Details of a specific salutation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salutation'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /account-types:
+    get:
+      summary: List all account types
+      operationId: listAccountTypes
+      tags:
+        - AccountType
+      responses:
+        '200':
+          description: A list of account types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountType'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /account-types/{code}:
+    get:
+      summary: Get details of a specific account type
+      operationId: getAccountType
+      tags:
+        - AccountType
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+            maxLength: 10
+          description: The contact type code of the account type to retrieve
+      responses:
+        '200':
+          description: Details of a specific account type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountType'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /industries:
+    get:
+      summary: List all industries
+      operationId: listIndustries
+      tags:
+        - Industry
+      responses:
+        '200':
+          description: A list of industries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Industry'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /industries/{code}:
+    get:
+      summary: Get details of a specific industry
+      operationId: getIndustry
+      tags:
+        - Industry
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+            maxLength: 20
+          description: The industry code to retrieve
+      responses:
+        '200':
+          description: Details of a specific industry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Industry'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /identifier-types:
+    get:
+      summary: List all identifier types
+      operationId: listIdentifierTypes
+      tags:
+        - IdentifierType
+      responses:
+        '200':
+          description: A list of identifier types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierType'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /identifier-types/{code}:
+    get:
+      summary: Get details of a specific identifier type
+      operationId: getIdentifierType
+      tags:
+        - IdentifierType
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+            maxLength: 20
+          description: The identifier type code to retrieve
+      responses:
+        '200':
+          description: Details of a specific identifier type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierType'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Country:
+      type: object
+      required:
+        - code
+        - wording
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: The 2-letters ISO country code 
+          example: "US"
+        wording:
+          type: string
+          maxLength: 100
+          description: The country name, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "United States Of America"
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US"   
+    ContactRole:
+      type: object
+      required:
+        - code
+        - wording
+      properties:
+        code:
+          type: string
+          maxLength: 10
+          description: The role code
+          example: "Employee"
+        wording:
+          type: string
+          maxLength: 100
+          description: The role wording, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "Employee"
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US"  
+    Salutation:
+      type: object
+      required:
+        - code
+        - wording
+        - abbreviation
+      properties:
+        code:
+          type: string
+          maxLength: 10
+          description: The salutation code
+          example: "Dr"
+        wording:
+          type: string
+          maxLength: 100
+          description: The salutation wording, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "Doctor"
+        abbreviation:
+          type: string
+          maxLength: 20
+          description: The salutation abbreviation, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "Dr."
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US"  
+    AccountType:
+      type: object
+      required:
+        - code
+        - wording
+      properties:
+        code:
+          type: string
+          maxLength: 10
+          description: The contact type code
+          example: "Customer - Direct"
+        wording:
+          type: string
+          maxLength: 100
+          description: The contact type wording, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "Customer - Direct"
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US" 
+    Industry:
+      type: object
+      required:
+        - code
+        - wording
+      properties:
+        code:
+          type: string
+          maxLength: 20
+          description: The industry code
+          example: "NAF5829C"
+        wording:
+          type: string
+          maxLength: 100
+          description: The industry wording, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "Customer - Direct"
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US" 
+    IdentifierType:
+      type: object
+      required:
+        - code
+        - wording
+      properties:
+        code:
+          type: string
+          maxLength: 20
+          description: The identifier type code
+          example: "VAT"
+        wording:
+          type: string
+          maxLength: 100
+          description: The identifier type wording, in the language specified in the Accept-Language HTTP header, or English by default if the header is missing
+          example: "VAT"
+        locale:
+          type: string
+          minLength: 2
+          maxLength: 20
+          description: Either an ISO language code or a IETF BCP 47 locale
+          example: "en-US" 
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        Exception:
+          type: string
+          description: Error message detailing what went wrong.
+          maxLength: 1000
+          example: "Internal server error"
+        Code:          
+          type: string
+          description: HTTP status code associated to the error.
+          minLength: 3
+          maxLength: 3
+          example: "500"          
+        TransactionId:
+          type: string
+          description: A unique identifier for the transaction, for debugging.
+          maxLength: 50
+          example: "APIGW:e632bb5e-bf09-473e-958c-0f2cc202bf42:621"
